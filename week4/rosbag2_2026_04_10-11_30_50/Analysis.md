@@ -1,0 +1,5 @@
+The rosbag utility captured the real-time geometry_msgs/msg/Twist messages published to the /turtle1/cmd_vel and /turtle2/cmd_vel topics. By analyzing this data, distinct control behaviors are visible:
+
+Leader Trajectory (turtle1): The trajectory data for the leader shows discrete, step-like inputs. Because this turtle was driven via turtle_teleop_key, the linear.x and angular.z values immediately spike to a constant value when a key is pressed and instantly drop to 0.0 when released. This represents an open-loop, human-driven system.
+
+Follower Trajectory (turtle2): The data for the follower turtle is much more dynamic, reflecting a closed-loop proportional control system. As the leader moves away, the follower's linear.x velocity scales proportionally to the Euclidean distance error. When observed alongside the angular.z data, it shows the follower prioritizing high angular velocity to align its heading before accelerating linearly. As the distance between the two turtles closes, the velocity values smoothly decay toward zero, demonstrating stable proportional damping.
